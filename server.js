@@ -11,7 +11,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(config.DBHost);
 
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 

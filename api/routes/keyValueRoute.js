@@ -3,7 +3,7 @@
  */
 
 'use strict';
-module.exports = function(app) {
+module.exports = function (app) {
     let keyValueList = require('../controllers/keyValueController');
 
     // todoList Routes

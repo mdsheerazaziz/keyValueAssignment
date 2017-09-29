@@ -26,10 +26,10 @@ describe('KeyValue Tests', () => {
         it('it should GET value for the give key', (done) => {
             let date = new Date()
             let timestamp = Math.floor((date.getTime() + date.getTimezoneOffset() * 60 * 1000) / 1000);
-            var keyValueData = new KeyValueModel({ key: "mykey", value: "value1", timestamp: timestamp});
+            var keyValueData = new KeyValueModel({key: "mykey", value: "value1", timestamp: timestamp});
             keyValueData.save((err, keyValueData) => {
                 chai.request(server)
-                    .get('/object/'+keyValueData.key)
+                    .get('/object/' + keyValueData.key)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.have.property('value');
@@ -42,14 +42,14 @@ describe('KeyValue Tests', () => {
             // Saving the Data in DB
             let date = new Date();
             let timestamp = Math.floor((date.getTime() + date.getTimezoneOffset() * 60 * 1000) / 1000);
-            let keyValueData = new KeyValueModel({ key: "mykey", value: "value1", timestamp: timestamp});
+            let keyValueData = new KeyValueModel({key: "mykey", value: "value1", timestamp: timestamp});
             keyValueData.save();
 
-            let timestamp2 = timestamp+10;
-            let keyValueData2 = new KeyValueModel({ key: "mykey", value: "value2", timestamp: timestamp2});
+            let timestamp2 = timestamp + 10;
+            let keyValueData2 = new KeyValueModel({key: "mykey", value: "value2", timestamp: timestamp2});
             keyValueData2.save((err, keyValueData2) => {
                 chai.request(server)
-                    .get('/object/'+keyValueData2.key)
+                    .get('/object/' + keyValueData2.key)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.have.property('value');
@@ -84,7 +84,6 @@ describe('KeyValue Tests', () => {
     });
 
 
-
     describe('/GET Get value with timestamp ', () => {
         /**
          * Positive TestCases
@@ -92,10 +91,10 @@ describe('KeyValue Tests', () => {
         it('it should GET value for the give key and timestamp', (done) => {
             let date = new Date()
             let timestamp = Math.floor((date.getTime() + date.getTimezoneOffset() * 60 * 1000) / 1000);
-            var keyValueData = new KeyValueModel({ key: "mykey", value: "value1", timestamp: timestamp});
+            var keyValueData = new KeyValueModel({key: "mykey", value: "value1", timestamp: timestamp});
             keyValueData.save((err, keyValueData) => {
                 chai.request(server)
-                    .get('/object/'+keyValueData.key+'?timestamp='+keyValueData.timestamp)
+                    .get('/object/' + keyValueData.key + '?timestamp=' + keyValueData.timestamp)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.have.property('value');
@@ -108,14 +107,14 @@ describe('KeyValue Tests', () => {
         it('it should GET value for the give key and timestamp less than the saved value', (done) => {
             let date = new Date()
             let timestamp = Math.floor((date.getTime() + date.getTimezoneOffset() * 60 * 1000) / 1000);
-            var keyValueData = new KeyValueModel({ key: "mykey", value: "value1", timestamp: timestamp});
+            var keyValueData = new KeyValueModel({key: "mykey", value: "value1", timestamp: timestamp});
             keyValueData.save();
 
-            let timestamp2 = timestamp+10;
-            var keyValueData2 = new KeyValueModel({ key: "mykey", value: "value2", timestamp: timestamp2});
+            let timestamp2 = timestamp + 10;
+            var keyValueData2 = new KeyValueModel({key: "mykey", value: "value2", timestamp: timestamp2});
             keyValueData2.save((err, keyValueData2) => {
                 chai.request(server)
-                    .get('/object/'+keyValueData2.key+'?timestamp='+keyValueData.timestamp)
+                    .get('/object/' + keyValueData2.key + '?timestamp=' + keyValueData.timestamp)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.have.property('value');
@@ -127,11 +126,11 @@ describe('KeyValue Tests', () => {
         it('it should GET value for the give key and timestamp greater than the saved value', (done) => {
             let date = new Date()
             let timestamp = Math.floor((date.getTime() + date.getTimezoneOffset() * 60 * 1000) / 1000);
-            let keyValueData = new KeyValueModel({ key: "mykey", value: "value2", timestamp: timestamp});
+            let keyValueData = new KeyValueModel({key: "mykey", value: "value2", timestamp: timestamp});
             let timestamp2 = timestamp + 10
             keyValueData.save((err, keyValueData) => {
                 chai.request(server)
-                    .get('/object/'+keyValueData.key+'?timestamp='+timestamp2)
+                    .get('/object/' + keyValueData.key + '?timestamp=' + timestamp2)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.have.property('value');
@@ -146,11 +145,11 @@ describe('KeyValue Tests', () => {
         it('it should GET value for the give key and wrong timestamp', (done) => {
             let date = new Date()
             let timestamp = Math.floor((date.getTime() + date.getTimezoneOffset() * 60 * 1000) / 1000);
-            let keyValueData = new KeyValueModel({ key: "mykey", value: "value2", timestamp: timestamp});
+            let keyValueData = new KeyValueModel({key: "mykey", value: "value2", timestamp: timestamp});
             let timestamp2 = 1234
             keyValueData.save((err, keyValueData) => {
                 chai.request(server)
-                    .get('/object/'+keyValueData.key+'?timestamp='+timestamp2)
+                    .get('/object/' + keyValueData.key + '?timestamp=' + timestamp2)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.have.property('message');
@@ -217,8 +216,7 @@ describe('KeyValue Tests', () => {
                 });
         });
         it('it should not POST a key value pair where both key and value is missing', (done) => {
-            let keyValueData = {
-            }
+            let keyValueData = {}
             chai.request(server)
                 .post('/object')
                 .send(keyValueData)

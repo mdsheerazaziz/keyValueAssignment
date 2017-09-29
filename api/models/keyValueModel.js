@@ -16,7 +16,7 @@ let KeyValueSchema = new Schema({
         required: 'Value is mandatory'
     },
     timestamp: {
-        type:Number
+        type: Number
     }
 });
 
